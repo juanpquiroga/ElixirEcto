@@ -1,7 +1,7 @@
 defmodule Cars.Car do
   use Ecto.Schema
 
-  schema "car" do
+    schema "car" do
     #field( :brand_id, :integer )
     field( :name, :string )
     field( :model, :integer)

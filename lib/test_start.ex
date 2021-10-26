@@ -1,6 +1,13 @@
 defmodule TestStart do
   require Ecto.Query
 
+  def test_brand do
+   brand = %Cars.Brand{description: "Renault"}
+   Cars.Repo.insert(brand)
+   brand1 = %Cars.Brand{description: "Chevrolet"}
+   Cars.Repo.insert(brand1)
+  end
+
   def test_insert_car do
     car = %Cars.Car{brand_id: 2, name: "Optra", model: 2019, owner: "Pepe Romero"}
     Cars.Repo.insert(car)
@@ -30,7 +37,7 @@ defmodule TestStart do
     IO.inspect(cars)
     car_getby = Car |> Repo.get_by(model: 2019)
     IO.inspect(car_getby)
-    car_model = Car |> Ecto.Query.where(model: 2019) |> Repo.all
+    car_model = Car |> Ecto.Query.where(model: 2017) |> Repo.all
     IO.inspect(car_model)
   end
 
