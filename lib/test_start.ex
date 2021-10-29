@@ -15,9 +15,26 @@ defmodule TestStart do
     Cars.Repo.insert(car2)
   end
 
+  @doc"""
+  Genera un nuevo vehiculo asociado a un brand a través de construir la asociación
+  """
+  def test_insert_car_assoc do
+    # Buscar el brand asociado
+    brand = Cars.Repo.get!(Cars.Brand, 2)
+    # Genera un car a partir de la asociacion uno a muchos de brand
+    # con base en el struct Car
+    car = %Cars.Car{name: "Cruise", model: 2021, owner: "Pepe Romero"}
+    car_to_insert = Ecto.build_assoc( brand, :cars, car)
+    # Aca tiene un brand asociado
+    IO.inspect(car_to_insert)
+    # Aca se puede insertar el nuevo car con el brand asociado
+    car_inserted = Cars.Repo.insert!(car_to_insert)
+    IO.inspect(car_inserted)
+  end
+
   def test_changeset_error do
     car3 = %Cars.Car{brand_id: 2, name: "Aveo"}
-    Cars.Car.changeset(car3, %{})
+    Cars.Car.changeset( %Cars.Car{}, Map.from_struct(car3))
   end
 
   def test_changeset_update do
